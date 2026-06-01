@@ -1,0 +1,28 @@
+services:
+  db:
+    container_name: db
+    image: postgres:17
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    env_file:
+      - .env
+    restart: always
+ 
+  django-web:
+    build: .
+    container_name: backend
+    command: sh -c 'python backend/manage.py migrate && python backend/manage.py runserver 0.0.0.0:8000'
+    volumes:
+      - ./backend:/app/backend
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    env_file:
+      - .env
+    
+
+volumes:
+   postgres_data:
