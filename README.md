@@ -45,9 +45,12 @@ An intelligent **Retrieval-Augmented Generation (RAG)** question‑answering sys
 ```bash
 git clone https://your-repo-url.git
 cd your-project
+chmod +x ./start.sh
+./start.sh
 ```
 
 ## Project Structure (Simplified)
+```bash
 .
 ├── backend/
 │   ├── config/                # Django settings & URLs
@@ -64,3 +67,4 @@ cd your-project
 ├── requirements.txt
 ├── .env
 └── README.md
+```
