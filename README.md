@@ -25,9 +25,9 @@ An intelligent **Retrieval-Augmented Generation (RAG)** question‑answering sys
 
 - **Backend**: Django 5.2, Django REST Framework  
 - **Main database**: PostgreSQL 17  
-- **Vector database**: Chroma (persistent directory)  
-- **LLM & Embeddings**: LangChain + OpenRouter (switchable to OpenAI)  
-- **File processing**: LangChain KreuzbergLoader (supports 88+ formats)  
+- **Vector database**: Chroma  
+- **LLM & Embeddings**: LangChain  
+- **File processing**: LangChain KreuzbergLoader 
 - **Containerization**: Docker, Docker Compose  
 
 ---
