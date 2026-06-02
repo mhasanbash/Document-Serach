@@ -44,10 +44,10 @@ An intelligent **Retrieval-Augmented Generation (RAG)** question‑answering sys
 
 ### 1️⃣ Clone the repository
 ```bash
-git clone https://your-repo-url.git
-cd your-project
-chmod +x ./start.sh
-./start.sh
+git clone https://github.com/mhasanbash/Document-Serach.git
+cd Document-Serach
+chmod +x ./script.sh
+./script.sh
 ```
 you should set DJANGO_SETTINGS_MODULE to config.settings.development for local using.
 
