@@ -50,7 +50,7 @@ class DocumentAddView(APIView):
             document = serializer.save()
             ChromaService().index_document(document)
                 
-            return Response({"message": "فایل با موفقیت آپلود و پردازش شد"}, status=status.HTTP_201_CREATED)
+            return Response({"message": "document uploaded succesfuly"}, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
             
@@ -64,7 +64,7 @@ class DocumentDeleteView(APIView):
         ChromaService().delete_document(doc)
         os.remove(doc.uploaded_file.path)
         doc.delete()
-        return Response(status=204)
+        return Response({"message": "Document deleted succesfuly"}, status=status.HTTP_200_OK)
     
 class DocumentUpdateView(APIView):
     parser_classes = (MultiPartParser, FormParser)
