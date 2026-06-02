@@ -4,11 +4,11 @@ from .models import Documents, QueryAndAnswer
 
 @admin.register(Documents)
 class DocumentsAdmin(admin.ModelAdmin):
-    list_display = ('id', 'title', 'uploaded_file', 'is_processed', 'chroma_uuid')
+    list_display = ('id', 'title', 'uploaded_file', 'is_processed', 'created_at', 'updated_at')
     
-    search_fields = ('title', 'raw_text')
+    search_fields = ('title', 'raw_text',)
     
-    list_filter = ('is_processed', )
+    list_filter = ('is_processed', 'created_at', 'updated_at')
 
 @admin.register(QueryAndAnswer)
 class QueryAndAnswerAdmin(admin.ModelAdmin):

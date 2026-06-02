@@ -9,8 +9,7 @@ from rest_framework.parsers import MultiPartParser, FormParser
 
 from .serializers import (
     QuerySerializer,
-    DocumentsSerializer, 
-    DocumentsUpdateSerializer, 
+    DocumentsSerializer,
     QueryAndAnswerSerializer
 )
 
@@ -37,19 +36,24 @@ class DocumentAddView(APIView):
     parser_classes = (MultiPartParser, FormParser)
 
     def post(self, request, *args, **kwargs):
-        data = request.data.copy()
-        if 'uploaded_file' in data:
-            data['title'] = data['uploaded_file'].name 
         
+        try:
+            data = request.data.copy()
+            if 'uploaded_file' in data:
+                data['title'] = data['uploaded_file'].name 
+        except Exception as e:
+            return Response({"error": f"Failed to add new file: {str(e)}"}, status=400)
+            
         serializer = DocumentsSerializer(data=data)
-        
+            
         if serializer.is_valid():
             document = serializer.save()
             ChromaService().index_document(document)
-            
+                
             return Response({"message": "فایل با موفقیت آپلود و پردازش شد"}, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            
            
 class DocumentDeleteView(APIView):
     def delete(self, request, *args, **kwargs):
@@ -72,10 +76,12 @@ class DocumentUpdateView(APIView):
             return tmp_file.name
 
     def put(self, request, *args, **kwargs):
-        data = request.data.copy()
-        
-        new_file = data['uploaded_file']
-        title = data['uploaded_file'].name
+        try:
+            data = request.data.copy()
+            new_file = data['uploaded_file']
+            title = data['uploaded_file'].name
+        except Exception as e:
+            return Response({"error": f"Failed to update new file: {str(e)}"}, status=400)
         
         doc = get_object_or_404(Documents, title=title)
         

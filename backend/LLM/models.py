@@ -8,6 +8,8 @@ class Documents(models.Model):
     is_processed = models.BooleanField(default=False)
     chroma_uuid = models.CharField(max_length=36, blank=True, null=True)
     raw_text = models.TextField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.title or ""
@@ -16,7 +18,7 @@ class Documents(models.Model):
 class QueryAndAnswer(models.Model):
     query = models.TextField(blank=True, null=True)
     awnser = models.TextField(blank=True, null=True)
-    date_created = models.DateTimeField(auto_now=True)
+    date_created = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
         return self.query[:16]

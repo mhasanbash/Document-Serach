@@ -4,6 +4,10 @@
 # Script: script.sh
 # Description: Create .env file interactively and run server
 # ============================================
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+RED='\033[0;31m'
+NC='\033[0m' 
 
 ENV_FILE=".env"
 
@@ -23,14 +27,28 @@ declare -A DEFAULTS=(
     ["POSTGRES_USER"]="dbuser"
     ["POSTGRES_PASSWORD"]="dbpassword"
     ["OPENAI_API_KEY"]="your-actual-api-key-here"
+    ["SECRET_KEY"]="your-secret-key"
 )
 
-KEYS_ORDER=(
+KEYS_ORDER_INPUT=(
     "DJANGO_ALLOWED_HOSTS"
     "DJANGO_SETTINGS_MODULE"
     "DEBUG"
     "SECRET_KEY"
     "OPENAI_API_KEY"
+)
+
+KEYS_ORDER=(
+    "DJANGO_LOGLEVEL"
+    "DATABASE_NAME"
+    "DATABASE_USERNAME"
+    "DATABASE_PASSWORD"
+    "DATABASE_HOST"
+    "DATABASE_PORT"
+    "DATABASE_ENGINE"
+    "POSTGRES_DB"
+    "POSTGRES_USER"
+    "POSTGRES_PASSWORD"
 )
 
 # Welcome message
@@ -56,7 +74,7 @@ fi
 > "$ENV_FILE"
 
 # Loop through each key and ask for input
-for key in "${KEYS_ORDER[@]}"; do
+for key in "${KEYS_ORDER_INPUT[@]}"; do
     default="${DEFAULTS[$key]}"
     read -p "$key [$default]: " input
     value="${input:-$default}"
@@ -64,10 +82,16 @@ for key in "${KEYS_ORDER[@]}"; do
     echo "$key=$value" >> "$ENV_FILE"
 done
 
+echo "" >> "$ENV_FILE"  
+for key in "${KEYS_ORDER[@]}"; do
+    value="${DEFAULTS[$key]}"
+    echo "$key=$value" >> "$ENV_FILE"
+done
+
 echo -e "your env variable set successfully!${NC}"
 
 echo "starting Docker Compose..."
-docker compose up --build -d
+docker compose up --build 
 
 if [ $? -eq 0 ]; then
     echo "srvice started succesfully"

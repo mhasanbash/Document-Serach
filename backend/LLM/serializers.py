@@ -10,10 +10,6 @@ class DocumentsSerializer(serializers.ModelSerializer):
         model = Documents
         fields = ['uploaded_file', 'title']
         
-class DocumentsUpdateSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Documents
-        fields = ['uploaded_file']
         
 class QueryAndAnswerSerializer(serializers.ModelSerializer):
     class Meta:
