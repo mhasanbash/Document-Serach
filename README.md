@@ -34,6 +34,7 @@ An intelligent **Retrieval-Augmented Generation (RAG)** question‑answering sys
 
 ## 📋 Prerequisites
 
+- Django secure secret_key
 - Docker and Docker Compose installed  
 - An API key from [OpenRouter](https://openrouter.ai/keys) or OpenAI (for embedding and chat models)
 
@@ -48,6 +49,7 @@ cd your-project
 chmod +x ./start.sh
 ./start.sh
 ```
+you should set DJANGO_SETTINGS_MODULE to config.settings.development for local using.
 
 ## Project Structure (Simplified)
 ```bash
