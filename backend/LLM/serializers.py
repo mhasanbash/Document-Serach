@@ -2,7 +2,7 @@ from rest_framework import serializers
 from .models import Documents, QueryAndAnswer
 
 class QuerySerializer(serializers.Serializer):
-    query = serializers.CharField(required=True, help_text="سوالی که کاربر می‌پرسد")
+    query = serializers.CharField(required=True)
     
     
 class DocumentsSerializer(serializers.ModelSerializer):
